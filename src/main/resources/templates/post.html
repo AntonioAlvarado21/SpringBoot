@@ -1,0 +1,43 @@
+
+<html lang="es">
+    
+    <head>
+        <title>Curso de Spring Boot</title>
+        
+        <link th:href="@{/css/bootstrap.css}" rel="stylesheet" href="../static/css/bootstrap.css"/> 
+        
+        <script th:src="@{/js/jquery.js}" src="../static/js/jquery.js"></script>
+        <script th:src="@{/js/bootstrap.js}" src="../static/js/bootstrap.js"></script>
+        
+    </head>
+    <body>
+    <!--Barra de navegación -->
+    <nav class="navbar navbar-dark bg-dark">
+      <div class="container-fluid">
+        <a class="navbar-brand" href="#">Spring Boot</a>
+        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
+          <div class="navbar-nav">
+            <a class="nav-link active" aria-current="page" th:href="@{/}" href="#">Inicio</a>
+            <a class="nav-link" href="#">Galeria</a>
+            <a class="nav-link" href="#">Post</a>
+          </div>
+        </div>
+      </div>
+    </nav>
+        
+    <!-- Cabezera o header -->
+    <h1 th:text="${post.titulo}">Hola Mundo </h1>    
+    <p th:text="${post.descripcion}">This is a simple hero unit.</p>
+    <p th:text="${post.fecha}"> It uses utility classes for typography</p>
+    <button type="button" class="btn btn-primary btn-lg">Learn more</button>
+    
+    <footer>
+    	<p>BytePL</p>
+    </footer> 
+        
+        
+    </body>
+</html>
