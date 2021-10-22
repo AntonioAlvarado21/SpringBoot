@@ -31,6 +31,10 @@ public class CursospringApplication implements CommandLineRunner {
 	@Value("${cursospring.jdbc.import.ruta}")
 	private String ruta;
 	
+	@Value("${cursospring.jdbc.import}")
+	private String importar;
+	
+	
 	/*@Autowired
 	@Qualifier("beanConexion")
 	private Conexion conexion;
@@ -43,12 +47,15 @@ public class CursospringApplication implements CommandLineRunner {
 	@Qualifier("serviceDecorado")
 	public PostService postService;*/
 	
+	Log log = LogFactory.getLog(getClass());
+	
 	public static void main(String[] args) {
 		SpringApplication.run(CursospringApplication.class, args);
 	}
 
 	@Override
 	public void run(String... args) throws Exception {
+		
 		/*Log log = LogFactory.getLog(getClass());
 		
 		try {
@@ -63,7 +70,7 @@ public class CursospringApplication implements CommandLineRunner {
 		
 		//jdbcTemplate.execute("insert into permiso (Nombre) values ('Ejemplo')");
 	
-		Path path = Paths.get("src/main/resources/import.sql");
+		/*Path path = Paths.get("src/main/resources/import.sql");
 		
 		Log log = LogFactory.getLog(getClass());
 		try(BufferedReader bufferReader = Files.newBufferedReader(path, Charset.forName("UTF-8")))
@@ -77,9 +84,30 @@ public class CursospringApplication implements CommandLineRunner {
 			
 		}catch(IOException ex) {
 			
+		}*/
+		
+		if(importar.equalsIgnoreCase("true")) {
+			Path path = Paths.get("ruta");
+			
+			
+			try(BufferedReader bufferReader = Files.newBufferedReader(path, Charset.forName("UTF-8")))
+			{
+				String line;
+				while((line = bufferReader.readLine()) != null) {
+					//log.info(line);
+					
+					jdbcTemplate.execute(line);
+				}
+				
+			}catch(IOException ex) {
+				
+			}
+			
 		}
+		
+		log.info("Tenemos estos permisos: " + jdbcTemplate.queryForObject("SELECT count(*) FROM permiso;", Integer.class));
 	}
-
+	
 	/*Otra forma de hacer inyecciones 
 	@Autowired
 	public CursospringApplication(@Qualifier("serviceDecorado") PostService postService)
